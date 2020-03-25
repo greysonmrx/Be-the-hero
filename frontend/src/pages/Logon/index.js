@@ -6,6 +6,9 @@ import { Container, Content } from "./styles";
 import logoImg from "../../assets/logo.svg";
 import heroesImg from "../../assets/heroes.png";
 
+import Input from "../../components/Input";
+import Button from "../../components/Button";
+
 function Logon() {
   return (
     <Container>
@@ -14,8 +17,8 @@ function Logon() {
         <form>
           <h1>Faça seu logon</h1>
 
-          <input placeholder="Sua ID" />
-          <button type="submit">Entrar</button>
+          <Input placeholder="Sua ID" />
+          <Button type="submit">Entrar</Button>
 
           <a href="/register">
             <FiLogIn size={16} color="#E02041" />
