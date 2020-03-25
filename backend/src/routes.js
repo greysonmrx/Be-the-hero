@@ -9,6 +9,7 @@ const routes = Router();
 routes.get("/ongs", OngController.index);
 routes.post("/ongs", OngController.store);
 
+routes.get("/incidents", IncidentsController.index);
 routes.post("/incidents", IncidentsController.store);
 
 module.exports = routes;

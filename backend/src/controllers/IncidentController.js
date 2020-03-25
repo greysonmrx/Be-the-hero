@@ -1,6 +1,18 @@
 const connection = require("../database/connection");
 
 class IncidentController {
+  async index(req, res) {
+    try {
+      const incidents = await connection("incidents").select("*");
+
+      return res.status(200).json(incidents);
+    } catch (err) {
+      return res.status(400).json({
+        message: "Operação indisponível"
+      });
+    }
+  }
+
   async store(req, res) {
     try {
       const { title, description, value } = req.body;
