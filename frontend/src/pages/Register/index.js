@@ -18,12 +18,12 @@ function Register() {
           <h1>Cadastro</h1>
           <p>
             Faça seu cadastro, entre na plataforma e ajude pessoas a encontrarem
-            os casos da saua ONG.
+            os casos da sua ONG.
           </p>
           <Link to="/">
             <>
               <FiArrowLeft size={18} color="#E02041" />
-              Já tenho cadastro
+              Voltar para o logon
             </>
           </Link>
         </section>
