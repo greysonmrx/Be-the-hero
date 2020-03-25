@@ -32,6 +32,40 @@ class IncidentController {
       });
     }
   }
+
+  async destroy(req, res) {
+    try {
+      const { id } = req.params;
+      const ong_id = req.headers.authorization;
+
+      const incident = await connection("incidents")
+        .where("id", id)
+        .select("ong_id")
+        .first();
+
+      if (!incident) {
+        return res.status(400).json({
+          message: "Caso não encontrado"
+        });
+      }
+
+      if (incident.ong_id != ong_id) {
+        return res.status(401).json({
+          message: "Operação não permitida"
+        });
+      }
+
+      await connection("incidents")
+        .where("id", id)
+        .delete();
+
+      return res.status(204).send();
+    } catch (err) {
+      return res.status(400).json({
+        message: "Operação indisponível"
+      });
+    }
+  }
 }
 
 module.exports = new IncidentController();
