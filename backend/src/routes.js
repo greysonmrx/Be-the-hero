@@ -21,4 +21,10 @@ routes.post("/ongs", async (req, res) => {
   return res.json({ id });
 });
 
+routes.get("/ongs", async (req, res) => {
+  const ongs = await connection("ongs").select("*");
+
+  return res.json(ongs);
+});
+
 module.exports = routes;
