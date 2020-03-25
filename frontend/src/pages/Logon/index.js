@@ -8,6 +8,7 @@ import heroesImg from "../../assets/heroes.png";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import Link from "../../components/Link";
 
 function Logon() {
   return (
@@ -20,10 +21,12 @@ function Logon() {
           <Input placeholder="Sua ID" />
           <Button type="submit">Entrar</Button>
 
-          <a href="/register">
-            <FiLogIn size={16} color="#E02041" />
-            Não tenho cadastro
-          </a>
+          <Link to="/register">
+            <>
+              <FiLogIn size={16} color="#E02041" />
+              Não tenho cadastro
+            </>
+          </Link>
         </form>
       </Content>
       <img src={heroesImg} alt="Heroes" />

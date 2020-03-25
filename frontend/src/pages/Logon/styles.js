@@ -22,24 +22,5 @@ export const Content = styled.section`
       font-size: 32px;
       margin-bottom: 32px;
     }
-
-    a {
-      display: flex;
-      align-items: center;
-      margin-top: 40px;
-      color: #41414d;
-      font-size: 18px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: opacity 0.2s;
-
-      &:hover {
-        opacity: 0.8;
-      }
-
-      svg {
-        margin-right: 8px;
-      }
-    }
   }
 `;
