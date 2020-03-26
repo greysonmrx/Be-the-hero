@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
+import * as MailComposer from "expo-mail-composer";
 
 import {
   Container,
@@ -22,9 +23,19 @@ import logoImg from "../../assets/logo.png";
 
 function Detail() {
   const navigation = useNavigation();
+  const message =
+    'Olá APAPI, estou entrando em contato pois gostaria de ajudar no caso "Cadelinha atropelada" com o valor de R$ 120,00.';
 
   function navigateToBack() {
     navigation.goBack();
+  }
+
+  function sendMail() {
+    MailComposer.composeAsync({
+      subject: "Herói do caso: Cadelinha atropelada",
+      recipients: ["greysonmrx@gmail.com"],
+      body: message
+    });
   }
 
   return (
@@ -51,7 +62,7 @@ function Detail() {
           <Action onPress={() => {}}>
             <ActionText>WhatsApp</ActionText>
           </Action>
-          <Action onPress={() => {}}>
+          <Action onPress={sendMail}>
             <ActionText>E-mail</ActionText>
           </Action>
         </Actions>
