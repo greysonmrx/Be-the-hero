@@ -40,7 +40,7 @@
 
 #### Run in Insomnia
 
-[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Be%20the%20hero&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fgreysonmrx%2FBe-the-hero%2Fblob%2Fmaster%2Finsomnia.json)
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Be%20the%20hero&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fgreysonmrx%2FBe-the-hero%2Fmaster%2Finsomnia.json)
 
 ### Getting started with the frontend app
 
