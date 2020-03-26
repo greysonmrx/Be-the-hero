@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 
 import {
@@ -20,11 +21,17 @@ import {
 import logoImg from "../../assets/logo.png";
 
 function Detail() {
+  const navigation = useNavigation();
+
+  function navigateToBack() {
+    navigation.goBack();
+  }
+
   return (
     <Container>
       <Header>
         <Img source={logoImg} />
-        <BackButton onPress={() => {}}>
+        <BackButton onPress={navigateToBack}>
           <Feather name="arrow-left" size={28} color="#e02041" />
         </BackButton>
       </Header>
