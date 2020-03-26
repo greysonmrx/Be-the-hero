@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import * as MailComposer from "expo-mail-composer";
+import { Linking } from "react-native";
 
 import {
   Container,
@@ -38,6 +39,10 @@ function Detail() {
     });
   }
 
+  function sendWhatsApp() {
+    Linking.openURL(`whatsapp://send?phone=5582996615836&text=${message}`);
+  }
+
   return (
     <Container>
       <Header>
@@ -59,7 +64,7 @@ function Detail() {
         <HeroTitle>Seja o herói desse caso.</HeroTitle>
         <HeroDescription>Entre em contato: </HeroDescription>
         <Actions>
-          <Action onPress={() => {}}>
+          <Action onPress={sendWhatsApp}>
             <ActionText>WhatsApp</ActionText>
           </Action>
           <Action onPress={sendMail}>
