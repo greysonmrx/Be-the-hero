@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FiPower, FiTrash2 } from "react-icons/fi";
 
 import { Container } from "./styles";
@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import api from "../../services/api";
 
 function Profile() {
+  const history = useHistory();
+
   const ongName = localStorage.getItem("ongName");
   const ongId = localStorage.getItem("ongId");
 
@@ -46,13 +48,21 @@ function Profile() {
     }
   }
 
+  function handleLogout() {
+    localStorage.clear();
+
+    toast.info("Você foi deslogado");
+
+    history.push("/");
+  }
+
   return (
     <Container>
       <header>
         <img src={logoImg} alt="Be the hero" />
         <span>Bem vinda, {ongName}</span>
         <Link to="/incidents/new">Cadastrar novo caso</Link>
-        <button>
+        <button onClick={handleLogout}>
           <FiPower size={18} color="#e02041" />
         </button>
       </header>
