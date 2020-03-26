@@ -32,6 +32,20 @@ function Profile() {
     }
   }
 
+  async function handleDeleteIncident(id) {
+    try {
+      await api.delete(`/incidents/${id}`, {
+        headers: {
+          Authorization: ongId
+        }
+      });
+
+      setIncidents(oldState => oldState.filter(incident => incident.id !== id));
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+  }
+
   return (
     <Container>
       <header>
@@ -45,7 +59,7 @@ function Profile() {
       <h1>Casos cadastrados</h1>
       <ul>
         {incidents.map(incident => (
-          <li key={incident.id}>
+          <li key>
             <strong>CASO:</strong>
             <p>{incident.title}</p>
 
@@ -60,7 +74,10 @@ function Profile() {
               }).format(incident.value)}
             </p>
 
-            <button type="button">
+            <button
+              type="button"
+              onClick={() => handleDeleteIncident(incident.id)}
+            >
               <FiTrash2 size={20} color="#a8a8b3" />
             </button>
           </li>
