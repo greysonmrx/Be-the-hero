@@ -26,6 +26,7 @@ function Incidents() {
   const navigation = useNavigation();
 
   const [incidents, setIncidents] = useState([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     loadIncidents();
@@ -40,6 +41,7 @@ function Incidents() {
       const response = await api.get("/incidents");
 
       setIncidents(response.data);
+      setTotal(response.headers["x-total-count"]);
     } catch (err) {
       Alert.alert(err.response.data.message);
     }
@@ -50,7 +52,7 @@ function Incidents() {
       <Header>
         <Img source={logoImg} />
         <HeaderText>
-          Total de <Strong>0 casos</Strong>.
+          Total de <Strong>{total} casos</Strong>.
         </HeaderText>
       </Header>
       <Title>Bem-vindo</Title>
