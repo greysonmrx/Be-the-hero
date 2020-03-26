@@ -7,7 +7,9 @@ const AppStack = createStackNavigator();
 export default function Routes() {
   return (
     <NavigationContainer>
-      <AppStack.Navigator></AppStack.Navigator>
+      <AppStack.Navigator
+        screenOptions={{ headerShown: false }}
+      ></AppStack.Navigator>
     </NavigationContainer>
   );
 }
