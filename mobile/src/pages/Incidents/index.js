@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Alert } from "react-native";
 
 import {
   Container,
@@ -18,13 +19,30 @@ import {
   DetailsButtonText
 } from "./styles";
 
+import api from "../../services/api";
 import logoImg from "../../assets/logo.png";
 
 function Incidents() {
   const navigation = useNavigation();
 
+  const [incidents, setIncidents] = useState([]);
+
+  useEffect(() => {
+    loadIncidents();
+  }, []);
+
   function navigateToDetail() {
     navigation.navigate("Detail");
+  }
+
+  async function loadIncidents() {
+    try {
+      const response = await api.get("/incidents");
+
+      setIncidents(response.data);
+    } catch (err) {
+      Alert.alert(err.response.data.message);
+    }
   }
 
   return (
@@ -39,17 +57,22 @@ function Incidents() {
       <Description>Escolha um dos casos abaixo e salve o dia.</Description>
 
       <IncidentList
-        data={[1, 2, 3]}
-        keyExtractor={incident => String(incident)}
+        data={incidents}
+        keyExtractor={incident => String(incident.id)}
         showsVerticalScrollIndicator={false}
-        renderItem={() => (
+        renderItem={({ item }) => (
           <Incident>
             <Property>ONG:</Property>
-            <Value>APAPI</Value>
+            <Value>{item.name}</Value>
             <Property>CASO:</Property>
-            <Value>Cadelinha atropelada</Value>
+            <Value>{item.title}</Value>
             <Property>VALOR:</Property>
-            <Value>R$ 120,00</Value>
+            <Value>
+              {Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+              }).format(item.value)}
+            </Value>
 
             <DetailsButton onPress={() => navigateToDetail()}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
