@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 import { Container, Content, ButtonGroup } from "./styles";
 
@@ -10,8 +12,37 @@ import Link from "../../components/Link";
 import TextArea from "../../components/TextArea";
 
 import logoImg from "../../assets/logo.svg";
+import api from "../../services/api";
 
 function NewIncident() {
+  const history = useHistory();
+
+  const ongId = localStorage.getItem("ongId");
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState("");
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const data = { title, description, value };
+
+    try {
+      await api.post("/incidents", data, {
+        headers: {
+          Authorization: ongId
+        }
+      });
+
+      toast.success("Caso criado com sucesso");
+
+      history.push("/profile");
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+  }
+
   return (
     <Container>
       <Content>
@@ -29,10 +60,20 @@ function NewIncident() {
             </>
           </Link>
         </section>
-        <form>
-          <Input placeholder="Título do caso" />
-          <TextArea placeholder="Descrição" type="email" />
-          <Input placeholder="Valor em reais" />
+        <form onSubmit={handleSubmit}>
+          <Input
+            placeholder="Título do caso"
+            onChange={e => setTitle(e.target.value)}
+          />
+          <TextArea
+            placeholder="Descrição"
+            type="email"
+            onChange={e => setDescription(e.target.value)}
+          />
+          <Input
+            placeholder="Valor em reais"
+            onChange={e => setValue(e.target.value)}
+          />
           <ButtonGroup>
             <RouterLink to="/profile">Cancelar</RouterLink>
             <Button type="submit">Cadastrar</Button>
