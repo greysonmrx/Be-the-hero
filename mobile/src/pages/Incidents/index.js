@@ -32,8 +32,8 @@ function Incidents() {
     loadIncidents();
   }, []);
 
-  function navigateToDetail() {
-    navigation.navigate("Detail");
+  function navigateToDetail(incident) {
+    navigation.navigate("Detail", { incident });
   }
 
   async function loadIncidents() {
@@ -76,7 +76,7 @@ function Incidents() {
               }).format(item.value)}
             </Value>
 
-            <DetailsButton onPress={() => navigateToDetail()}>
+            <DetailsButton onPress={() => navigateToDetail(item)}>
               <DetailsButtonText>Ver mais detalhes</DetailsButtonText>
               <Feather name="arrow-right" size={16} color="#e02041" />
             </DetailsButton>

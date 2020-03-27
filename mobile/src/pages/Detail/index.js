@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import * as MailComposer from "expo-mail-composer";
 import { Linking } from "react-native";
@@ -24,8 +24,14 @@ import logoImg from "../../assets/logo.png";
 
 function Detail() {
   const navigation = useNavigation();
-  const message =
-    'Olá APAPI, estou entrando em contato pois gostaria de ajudar no caso "Cadelinha atropelada" com o valor de R$ 120,00.';
+  const route = useRoute();
+
+  const incident = route.params.incident;
+  const value = Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  }).format(incident.value);
+  const message = `Olá ${incident.name}, estou entrando em contato pois gostaria de ajudar no caso "${incident.title}" com o valor de ${value}.`;
 
   function navigateToBack() {
     navigation.goBack();
@@ -33,14 +39,16 @@ function Detail() {
 
   function sendMail() {
     MailComposer.composeAsync({
-      subject: "Herói do caso: Cadelinha atropelada",
-      recipients: ["greysonmrx@gmail.com"],
+      subject: `Herói do caso: ${incident.title}`,
+      recipients: [incident.email],
       body: message
     });
   }
 
   function sendWhatsApp() {
-    Linking.openURL(`whatsapp://send?phone=5582996615836&text=${message}`);
+    Linking.openURL(
+      `whatsapp://send?phone=${incident.whatsapp}&text=${message}`
+    );
   }
 
   return (
@@ -53,11 +61,13 @@ function Detail() {
       </Header>
       <Incident>
         <Property style={{ marginTop: 0 }}>ONG:</Property>
-        <Value>APAPI</Value>
+        <Value>
+          {incident.name} de {incident.city} / {incident.uf}
+        </Value>
         <Property>CASO:</Property>
-        <Value>Cadelinha atropelada</Value>
+        <Value>{incident.title}</Value>
         <Property>VALOR:</Property>
-        <Value>R$ 120,00</Value>
+        <Value>{value}</Value>
       </Incident>
       <ContactBox>
         <HeroTitle>Salve o dia!</HeroTitle>
