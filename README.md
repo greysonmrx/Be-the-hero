@@ -52,7 +52,7 @@
 
 1. Move yourself to the mobile folder: `cd mobile`
 2. Run `yarn` to install dependencies<br />
-3. Run `react-native run-ios` (or `run-android` if your prefer) to start the mobile app
+3. Run `yarn start` to start the mobile app
 
 ## Contributing
 
